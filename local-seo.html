@@ -37,21 +37,20 @@
 
 <nav class="subside" aria-label="Local tools">
 <h5>Local</h5>
-<a href="#start" class="on">Dashboard</a>
-<a href="#t-listing">Listing Management</a>
-<a href="#t-reviews">Review Management</a>
-
+<a href="local-seo.html?section=start#start" class="on">Dashboard</a>
+<a href="local-seo.html?section=t-listing#t-listing">Listing Management</a>
+<a href="local-seo.html?section=t-reviews#t-reviews">Review Management</a>
 <div class="grp">Automations</div>
-<a href="#t-auto">Automations</a>
-<a href="#t-ai">GBP AI Agent</a>
+<a href="local-seo.html?section=t-auto#t-auto">Automations</a>
+<a href="local-seo.html?section=t-ai#t-ai">GBP AI Agent</a>
 <div class="grp">Competitive Analysis</div>
-<a href="#t-comp">Competitive Analysis</a>
-<a href="#t-rank">Map Rank Tracker</a>
+<a href="local-seo.html?section=t-comp#t-comp">Competitive Analysis</a>
+<a href="local-seo.html?section=t-rank#t-rank">Map Rank Tracker</a>
 </nav>
 
 <main class="main" id="start">
 <div class="mtabs" aria-label="Local tools">
-<a href="#start" class="on">Dashboard</a><a href="#t-listing">Listings</a><a href="#t-reviews">Reviews</a><a href="#t-gbp">GBP</a><a href="#t-auto">Automations</a><a href="#t-ai">GBP AI Agent</a><a href="#t-comp">Competitors</a><a href="#t-rank">Map Rank</a>
+<a href="local-seo.html?section=start#start" class="on">Dashboard</a><a href="local-seo.html?section=t-listing#t-listing">Listings</a><a href="local-seo.html?section=t-reviews#t-reviews">Reviews</a><a href="local-seo.html?section=t-gbp#t-gbp">GBP</a><a href="local-seo.html?section=t-auto#t-auto">Automations</a><a href="local-seo.html?section=t-ai#t-ai">GBP AI Agent</a><a href="local-seo.html?section=t-comp#t-comp">Competitors</a><a href="local-seo.html?section=t-rank#t-rank">Map Rank</a>
 </div>
 
 
@@ -207,7 +206,7 @@ ${v.isResult ? html`
 <div class="sm"><small>Total reviews</small><span class="hint">Reviews build trust</span><div class="v mono">${v.biz.reviews}</div></div>
 <div class="sm"><small>GBP completeness</small><span class="hint">Profile strength</span><div class="v mono">${v.biz.gbp}%</div><div class="gbar"><i style="width: ${v.biz.gbpW}"></i></div></div>
 </div>
-<div class="ctabar"><p>You're missing from ${v.missing} directories and have ${v.errors} listings with wrong details.</p><a href="index.html" class="btn ppl">Fix ${v.toFix} listings — create free account</a></div>
+<div class="ctabar"><p>You're missing from ${v.missing} directories and have ${v.errors} listings with wrong details.</p><a href="https://gbp.hyperlocalseoai.com/" class="btn ppl">Fix ${v.toFix} listings — create free account</a></div>
 </div>
 
 <div class="card anim">
@@ -225,38 +224,37 @@ ${(v.dirRows || []).map((r, $index) => html`<div class="dr"><span class="dn">${r
 <span class="tk">Listing Management</span><h3>Fix wrong details and get listed everywhere</h3>
 <div class="vis"><div class="fixl"><div>Facebook phone <s>+91 120 455 0198</s><span class="ar">→</span><span class="okc">+91 120 455 0189</span></div><div>Justdial <span style="color: #c02626">2 duplicate listings</span><span class="ar">→</span><span class="okc">Merged</span></div><div>Bing Places <span style="color: #c02626">Not present</span><span class="ar">→</span><span class="okc">Published</span></div></div></div>
 <ul><li><b>Automatic NAP sync</b>Update name, address and phone everywhere from one place.</li><li><b>Duplicate cleanup</b>Find and merge duplicate listings for every location.</li></ul>
-<a href="index.html" class="btn ppl">Fix my listings</a>
+<a href="https://gbp.hyperlocalseoai.com/" class="btn ppl">Fix my listings</a>
 </div>
 <div class="up anim">
 <span class="tk">GBP Optimization + AI Agent</span><h3>Power up your Google Business Profile</h3>
 <div class="vis"><div class="posts"><div class="post"><span class="dd">Mon</span>Weekend opening hours — drafted by AI</div><div class="post"><span class="dd">Thu</span>Teeth whitening offer with photo</div><div class="post"><span class="dd">Next</span>Add 2 suggested categories (+${v.gbpGain}% completeness)</div></div></div>
 <ul><li><b>Post scheduling</b>Plan weeks of posts in minutes with AI drafts.</li><li><b>Profile insights</b>Calls, directions and website clicks over time.</li></ul>
-<a href="index.html" class="btn ppl">Optimize my profile</a>
+<a href="https://gbp.hyperlocalseoai.com/" class="btn ppl">Optimize my profile</a>
 </div>
 <div class="up anim">
 <span class="tk">Map Rank Tracker</span><h3>See how you rank from every corner of your area</h3>
 <div class="vis"><div class="map rankmap local-rankmap" aria-label="Map rank tracker preview"><iframe class="maptiles" title="Map rank tracker area" src="https://www.google.com/maps?ll=28.5483%2C77.1258&z=14&output=embed" loading="lazy"></iframe>${(v.gridPrev || []).slice(0,15).map((g, $index) => html`<span class="pin on ${g.cls === 'g1' ? 'top' : ''}" style="left: ${14 + ($index % 5) * 18}%; top: ${30 + Math.floor($index / 5) * 22}%"><span class="pb"></span><span class="pn">${g.label}</span></span>`)}</div></div><ul><li><b>Any keyword, any business</b>Track yourself and competitors on the same grid.</li><li><b>Scheduled scans</b>Daily, weekly, monthly or on demand.</li></ul>
-<a href="index.html" class="btn ppl">Track my map rankings</a>
+<a href="https://gbp.hyperlocalseoai.com/" class="btn ppl">Track my map rankings</a>
 </div>
 <div class="up anim">
 <span class="tk">Reviews + Competitive Analysis</span><h3>Manage your reputation and track competitors</h3>
 <div class="vis"><div class="cmp"><div class="you"><span>${v.biz.name}</span><span class="mono">${v.biz.rating} ★</span><span class="mono">${v.biz.reviews}</span></div><div><span>Nearby competitor A</span><span class="mono">4.5 ★</span><span class="mono">688</span></div><div><span>Nearby competitor B</span><span class="mono">4.1 ★</span><span class="mono">203</span></div></div></div>
 <ul><li><b>One review inbox</b>Every location, with low-rating alerts and AI reply drafts.</li><li><b>Competitor benchmarks</b>Review volume, reply rate and rating trends.</li></ul>
-<a href="index.html" class="btn ppl">Manage my reviews</a>
+<a href="https://gbp.hyperlocalseoai.com/" class="btn ppl">Manage my reviews</a>
 </div>
 </div>
 
 <div class="band anim" style="margin-top: 18px">
 <h2>Fix ${v.toFix} listing issues and start ranking in more neighbourhoods</h2>
 <p>Your scan is saved. Create a free account to fix issues, or log in to your client dashboard.</p>
-<div style="margin-top: 24px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap"><a href="index.html" class="btn lg" style="background: #fff; color: #0b1233">Create free account</a><a href="#start" class="btn lg" style="color: #fff; border: 1px solid rgba(255,255,255,.4)">Start Free Audit</a></div>
-<p style="margin-top: 18px; font-size: 14px"><a href="index.html" style="color: #fff; font-weight: 700">Also audit your website SEO →</a></p>
+<div style="margin-top: 24px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap"><a href="https://gbp.hyperlocalseoai.com/" class="btn lg" style="background: #fff; color: #0b1233">Create free account</a><a href="https://gbp.hyperlocalseoai.com/" class="btn lg" style="color: #fff; border: 1px solid rgba(255,255,255,.4)">Start Free Audit</a></div>
+<p style="margin-top: 18px; font-size: 14px"><a href="https://gbp.hyperlocalseoai.com/" style="color: #fff; font-weight: 700">Also audit your website SEO &rarr;</a></p>
 </div>
 ` : null}
 </div>
 </div>
 ` : null}
-
 <footer class="foot"><span>© 2026 LOCAL Ai · Local SEO dashboard</span><span>Sample scans use demo data. <a href="index.html">Back to overview</a></span></footer>
 </main>
 </div>
@@ -266,6 +264,16 @@ ${(v.dirRows || []).map((r, $index) => html`<div class="dr"><span class="dn">${r
 
 class Component extends DCLogic {
   state = { step: 'start', q: '', adv: false, f: { country: 'IN', name: '', addr: '', pin: '', phone: '' }, err: '', biz: null, scanI: 0, showAll: false, aud: 'smb', faq: 0, copied: false };
+
+  componentDidMount() {
+    const id = (window.location.hash || '').replace('#', '');
+    if (!id) return;
+    setTimeout(() => {
+      const el = document.getElementById(id);
+      const header = document.querySelector('.top');
+      if (el) window.scrollTo({ top: Math.max(0, el.getBoundingClientRect().top + window.scrollY - (header ? header.offsetHeight + 14 : 14)) });
+    }, 120);
+  }
 
   componentWillUnmount() { clearInterval(this.iv); clearTimeout(this.to); }
 
@@ -372,7 +380,7 @@ class Component extends DCLogic {
       ['Can I use Local SEO without the website SEO tools?', 'Yes. You can start with Local only and add Website SEO, technical audits and GSC, GA4, GTM and UTM reporting whenever you need them.'],
       ['Do you support businesses with multiple locations?', 'Yes. You can manage every location from one account, update listings and profiles in bulk, and compare performance location by location.'],
       ['Is there a plan for agencies?', 'Yes. Agencies can manage multiple client accounts and give each client their own dashboard login.'],
-      ['Which countries are supported?', '[List of supported countries and directories]']
+      ['Which countries are supported?', 'All countries are supported.']
     ];
     const faqs = FAQ.map((f, i) => ({ q: f[0], a: f[1], open: st.faq === i, exp: st.faq === i ? 'true' : 'false', cls: st.faq === i ? 'open' : '', toggle: () => this.setState({ faq: st.faq === i ? -1 : i }) }));
 
@@ -393,6 +401,7 @@ class Component extends DCLogic {
       onCountry: set('country'), onFName: set('name'), onFAddr: set('addr'), onFPin: set('pin'), onFPhone: set('phone'),
       submitSearch, hasErr: !!st.err, err: st.err,
       samples, matches, qShown: st.q.trim(),
+
       goStart: () => { clearInterval(this.iv); this.setState({ step: 'start' }); this.top(); },
       reset: () => { clearInterval(this.iv); clearTimeout(this.to); this.setState({ step: 'start', q: '', biz: null, err: '' }); this.top(); },
       biz: bizV, scanList, radar, scanPct: pct, scanW: pct + '%', scanDone: Math.min(st.scanI, n), dirCount: n,
@@ -418,7 +427,7 @@ class Component extends DCLogic {
       <p>Start a free audit in the workspace you need.</p>
     </div>
     <div class="dashboard-options">
-      <a class="dashboard-option website" href="https://seo.hyperlocalseoai.com/login">
+      <a class="dashboard-option website" href="https://seo.hyperlocalseoai.com/dashboard">
         <span class="dashboard-option-icon"><span class="brand-mark"><img src="assets/local-ai-logo.png" alt="" /></span></span>
         <span class="dashboard-option-copy"><b>Website SEO</b><small>Technical audits, search performance<br />and website visibility.</small><span class="dashboard-tags"><span>Site audit</span><span>Rank tracking</span><span>Competitors</span></span></span>
         <span class="dashboard-illustration web-illustration" aria-hidden="true"><svg viewBox="0 0 150 115"><rect x="20" y="10" width="90" height="76" rx="8" fill="#fff" stroke="#cfdbf6" stroke-width="3"/><path d="M21 28h88" stroke="#b7c9ed" stroke-width="3"/><circle cx="31" cy="19" r="3" fill="#ff6b8a"/><circle cx="41" cy="19" r="3" fill="#f9be4a"/><circle cx="51" cy="19" r="3" fill="#57cb7d"/><path d="M34 70V58M49 70V49M64 70V41M79 70V34" stroke="#3977eb" stroke-width="9" stroke-linecap="round"/><circle cx="94" cy="69" r="22" fill="none" stroke="#1a49cf" stroke-width="7"/><path d="m110 85 18 18" stroke="#1a49cf" stroke-width="8" stroke-linecap="round"/></svg></span>
