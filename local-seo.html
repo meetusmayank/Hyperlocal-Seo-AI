@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LOCAL Ai — Free Local SEO Scan</title>
+<link rel="icon" href="assets/local-ai-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap">
+<link rel="stylesheet" href="assets/css/local-seo.css">
+</head>
+<body>
+<div id="app"></div>
+<noscript>Please enable JavaScript to view this page.</noscript>
+<script src="assets/vendor/htm-preact-standalone.umd.js"></script>
+<script>
+(function () {
+  var html = htmPreact.html, render = htmPreact.render;
+  class DCLogic extends htmPreact.Component {
+    render() { return template(this.renderVals()); }
+  }
+  function template(v) {
+    return html`
+
+<div class="lf">
+
+<header class="top">
+<a href="index.html" aria-label="LOCAL Ai home"><img src="assets/local-ai-logo.png" alt="LOCAL Ai" width="150" height="26" /></a>
+<nav class="tnav" aria-label="Primary"><a href="index.html">Home</a><a href="index.html#seo">SEO</a><a href="#start" class="on">Hyperlocal</a></nav>
+<div class="tact"><a href="#start" class="btn ppl" onClick=${v.goStart}>Start Free Audit</a></div>
+</header>
+
+<div class="app">
+
+
+
+
+<nav class="subside" aria-label="Local tools">
+<h5>Local</h5>
+<a href="#start" class="on">Dashboard</a>
+<a href="#t-listing">Listing Management</a>
+<a href="#t-reviews">Review Management</a>
+
+<div class="grp">Automations</div>
+<a href="#t-auto">Automations</a>
+<a href="#t-ai">GBP AI Agent</a>
+<div class="grp">Competitive Analysis</div>
+<a href="#t-comp">Competitive Analysis</a>
+<a href="#t-rank">Map Rank Tracker</a>
+</nav>
+
+<main class="main" id="start">
+<div class="mtabs" aria-label="Local tools">
+<a href="#start" class="on">Dashboard</a><a href="#t-listing">Listings</a><a href="#t-reviews">Reviews</a><a href="#t-gbp">GBP</a><a href="#t-auto">Automations</a><a href="#t-ai">GBP AI Agent</a><a href="#t-comp">Competitors</a><a href="#t-rank">Map Rank</a>
+</div>
+
+
+${v.isStart ? html`
+<section class="hero">
+<svg class="art" viewBox="0 0 1200 520" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><g stroke="#fff" stroke-opacity="0.07" fill="none" stroke-width="14"><path d="M-20 380 C200 340 380 420 600 360 S980 260 1220 300"></path><path d="M260 -20 C280 160 220 330 300 540"></path><path d="M880 -20 L930 540"></path><path d="M-20 140 L1220 190"></path></g><g fill="#fff" fill-opacity="0.16"><path d="M180 120c-16 0-28 12-28 28 0 21 28 46 28 46s28-25 28-46c0-16-12-28-28-28z"></path><path d="M1010 90c-14 0-24 10-24 24 0 18 24 40 24 40s24-22 24-40c0-14-10-24-24-24z"></path><path d="M640 50c-12 0-21 9-21 21 0 16 21 34 21 34s21-18 21-34c0-12-9-21-21-21z"></path></g></svg>
+<span class="crumb">Local dashboard · Free scan</span>
+<h1>Get found by every customer searching nearby</h1>
+<p class="sub">Check your Google Business Profile, directory listings, reviews and map rankings in one free local scan — then fix everything from one dashboard.</p>
+
+${v.simple ? html`
+<form class="sbox" onSubmit=${v.submitSearch}>
+<label><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0119 9.5C19 14.8 12 21 12 21z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg><span class="sr">Business name or address</span><input type="text" placeholder="Enter your business name or address for a free local scan" value=${v.q} onInput=${v.onQ} /></label>
+<button type="submit" class="btn ppl lg">Scan my business<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="M20 20l-4.2-4.2"></path></svg></button>
+</form>
+` : null}
+${v.advOpen ? html`
+<form class="adv" onSubmit=${v.submitSearch}>
+<label>Country<select value=${v.fCountry} onChange=${v.onCountry}><option value="IN">India</option><option value="US">United States</option><option value="GB">United Kingdom</option><option value="AE">UAE</option><option value="AU">Australia</option></select></label>
+<label>Business name<input type="text" placeholder="Northside Dental" value=${v.fName} onInput=${v.onFName} /></label>
+<label>Street address<input type="text" placeholder="e.g. C-24, Sector 18" value=${v.fAddr} onInput=${v.onFAddr} /></label>
+<label>PIN / ZIP<input type="text" inputmode="numeric" placeholder="201301" value=${v.fPin} onInput=${v.onFPin} /></label>
+<label>Phone number<input type="tel" placeholder="+91 120 455 0189" value=${v.fPhone} onInput=${v.onFPhone} /></label>
+<div class="wbtn"><button type="submit" class="btn ink lg" style="width: 100%">Check</button></div>
+</form>
+` : null}
+<button type="button" class="advt ${v.advCls}" onClick=${v.toggleAdv} aria-expanded=${v.advAria}>${v.advLabel}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+${v.hasErr ? html`<div><span class="err" role="alert">${v.err}</span></div>` : null}
+
+<div class="samples">
+<small>Or see a sample scan</small>
+${(v.samples || []).map((s, $index) => html`<button type="button" class="smp" onClick=${s.go}><span class="cc">${s.cc}</span>${s.label}<span class="go">View free scan<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></span></button>`)}
+</div>
+</section>
+
+
+<section class="sec">
+<div class="inner">
+<div class="sh"><span class="kick">How it works</span><h2>From search to fixed in three steps</h2></div>
+<div class="steps">
+<div class="stp"><span class="n">1</span><h4>Find your business</h4><p>Search by name or address. We match your Google Business Profile automatically.</p></div>
+<div class="stp"><span class="n">2</span><h4>Get your free local scan</h4><p>See listing accuracy, missing directories, reviews and profile completeness in under a minute.</p></div>
+<div class="stp"><span class="n">3</span><h4>Fix and grow from one dashboard</h4><p>Sync listings, reply to reviews, schedule posts and track map rankings — or let automations do it.</p></div>
+</div>
+</div>
+</section>
+
+
+<section class="sec alt">
+<div class="inner">
+<div class="sh"><span class="kick">Local toolkit</span><h2>Everything you need to become the go-to business in your area</h2><p>Every tool below is part of the Local section of your dashboard, next to your website SEO data.</p></div>
+<div class="tools">
+<div class="tool wide" id="t-ai">
+<div><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l1.8 4.6L18.5 9l-4.7 1.6L12 15l-1.8-4.4L5.5 9l4.7-1.4z"></path><path d="M18 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"></path></svg></span><span class="tk">GBP AI Agent</span><h3>An AI assistant that runs your Google Business Profile</h3><p>It suggests profile fixes, drafts posts and review replies, flags competitor gaps and gives you a weekly local SEO plan. You approve; it does the work.</p><div class="ta"><button type="button" class="btn ppl" onClick=${v.goStart}>Start free scan</button><a href="index.html" class="btn lnk">Learn more</a></div></div>
+<div class="aibox"><b style="font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: #6b2bd9">This week's suggestions</b>
+<div class="row"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Add "Emergency dental service" as a secondary category</div>
+<div class="row"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Post drafted: weekend opening hours update</div>
+<div class="row"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>3 review replies ready for approval</div>
+</div>
+</div>
+<div class="tool" id="t-listing"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"></path><path d="M17 16l2 2 3-4"></path></svg></span><span class="tk">Listing Management</span><h3>Show up correctly everywhere</h3><p>Keep name, address, phone and hours in sync across Google, Bing, Apple, Facebook, Justdial and more. Find duplicates and missing listings.</p><div class="ta"><button type="button" class="btn ppl" onClick=${v.goStart}>Start free scan</button><a href="index.html" class="btn lnk">Learn more</a></div></div>
+<div class="tool" id="t-reviews"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg></span><span class="tk">Review Management</span><h3>Collect more reviews, reply faster</h3><p>Automated review requests, one inbox for every location, low-rating alerts and AI-drafted replies you control.</p><div class="ta"><button type="button" class="btn ppl" onClick=${v.goStart}>Start free scan</button><a href="index.html" class="btn lnk">Learn more</a></div></div>
+<div class="tool" id="t-gbp"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 9l1.5-5h13L20 9"></path><path d="M5 13v7h14v-7"></path><path d="M4 9h16"></path></svg></span><span class="tk">GBP Optimization</span><h3>A profile that's complete and active</h3><p>Completeness score, category suggestions, photo and service guidance, post scheduling and GBP performance insights.</p><div class="ta"><button type="button" class="btn ppl" onClick=${v.goStart}>Start free scan</button><a href="index.html" class="btn lnk">Learn more</a></div></div>
+<div class="tool" id="t-auto"><span class="ic"><svg viewBox="0 0 24 24"><path d="M13 3L4 14h7l-1 7 9-11h-7z"></path></svg></span><span class="tk">Automations</span><h3>Local SEO on autopilot</h3><p>Review request workflows, scheduled posts, listing updates, plus alerts for SEO issues, ranking drops and indexing changes.</p><div class="ta"><button type="button" class="btn ppl" onClick=${v.goStart}>Start free scan</button><a href="index.html" class="btn lnk">Learn more</a></div></div>
+<div class="tool" id="t-comp"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"></path></svg></span><span class="tk">Competitive Analysis</span><h3>Know who beats you nearby — and why</h3><p>Compare ratings, review velocity, GBP strength and map visibility against the businesses you compete with.</p><div class="ta"><button type="button" class="btn ppl" onClick=${v.goStart}>Start free scan</button><a href="index.html" class="btn lnk">Learn more</a></div></div>
+<div class="tool" id="t-rank"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="5" cy="5" r="1.5"></circle><circle cx="12" cy="5" r="1.5"></circle><circle cx="19" cy="5" r="1.5"></circle><circle cx="5" cy="12" r="1.5"></circle><circle cx="12" cy="12" r="2.5"></circle><circle cx="19" cy="12" r="1.5"></circle><circle cx="5" cy="19" r="1.5"></circle><circle cx="12" cy="19" r="1.5"></circle><circle cx="19" cy="19" r="1.5"></circle></svg></span><span class="tk">Map Rank Tracker</span><h3>See your rank from every street</h3><p>Geo-grid Google Maps tracking by keyword, so you can spot weak service areas and track progress over time.</p><div class="ta"><button type="button" class="btn ppl" onClick=${v.goStart}>Start free scan</button><a href="index.html" class="btn lnk">Learn more</a></div></div>
+</div>
+</div>
+</section>
+
+
+<section class="sec">
+<div class="inner">
+<div class="sh"><span class="kick">Built for</span><h2>One local dashboard, whatever your size</h2></div>
+<div class="aud" role="tablist" aria-label="Audience">
+${(v.audTabs || []).map((a, $index) => html`<button type="button" role="tab" aria-selected=${a.sel} class="audb ${a.cls}" onClick=${a.pick}>${a.label}</button>`)}
+</div>
+<div class="audp" role="tabpanel">
+<div><h3>${v.aud.title}</h3><p>${v.aud.desc}</p><div style="margin-top: 20px"><button type="button" class="btn ppl" onClick=${v.goStart}>Start free scan</button></div></div>
+<ul class="chk">${(v.aud.points || []).map((pt, $index) => html`<li>${pt}</li>`)}</ul>
+</div>
+</div>
+</section>
+
+
+<section class="sec alt">
+<div class="inner">
+<div class="sh"><span class="kick">FAQ</span><h2>Frequently asked questions</h2></div>
+<div class="faq">
+${(v.faqs || []).map((f, $index) => html`<div class="fq ${f.cls}"><button type="button" aria-expanded=${f.exp} onClick=${f.toggle}>${f.q}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></button>${f.open ? html`<p>${f.a}</p>` : null}</div>`)}
+</div>
+</div>
+</section>
+
+<section class="sec">
+<div class="inner">
+<div class="band">
+<h2>Control your Google Business Profile, listings and reviews — and see your real local rankings</h2>
+<p>Start with a free scan of your local presence.</p>
+<div style="margin-top: 24px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap"><button type="button" class="btn lg" style="background: #fff; color: #0b1233" onClick=${v.goStart}>Scan my business</button><a href="#start" class="btn lg" style="color: #fff; border: 1px solid rgba(255,255,255,.4)">Start Free Audit</a></div>
+</div>
+</div>
+</section>
+` : null}
+
+
+${v.inFlow ? html`
+<div class="flowwrap">
+<div class="inner">
+<div class="stepper" aria-label="Progress">
+<span class="sp ${v.sp1}"><i>1</i>Find business</span><span class="sline"></span>
+<span class="sp ${v.sp2}"><i>2</i>Scan</span><span class="sline"></span>
+<span class="sp ${v.sp3}"><i>3</i>Results</span>
+</div>
+
+
+${v.isPick ? html`
+<div class="card anim" style="max-width: 760px; margin: 0 auto">
+<div class="ptitle"><h2>Is this your business?</h2><p>We found these matches for "${v.qShown}". Pick yours to start the scan.</p></div>
+${(v.matches || []).map((m, $index) => html`<button type="button" class="match" onClick=${m.pick}><span class="mi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0119 9.5C19 14.8 12 21 12 21z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg></span><span style="min-width: 0"><b>${m.name}</b><span>${m.cat} · ${m.addr}</span></span><span class="pick">Select</span></button>`)}
+<div style="display: flex; justify-content: space-between; gap: 10px; margin-top: 18px; flex-wrap: wrap"><button type="button" class="btn lnk" onClick=${v.reset}>← Search again</button><button type="button" class="btn lnk" onClick=${v.openAdv}>Not listed? Enter details manually</button></div>
+</div>
+` : null}
+
+
+${v.isScan ? html`
+<div class="card anim">
+<div class="scan">
+<div class="radar" aria-hidden="true"><span class="ctr"></span>${(v.radar || []).map((r, $index) => html`<span class="rp ${r.cls}" style="left: ${r.x}; top: ${r.y}"></span>`)}</div>
+<div>
+<span class="rt">Scanning in real time</span>
+<div class="bizline"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0119 9.5C19 14.8 12 21 12 21z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg><div><b>${v.biz.name}</b><span>${v.biz.addr}</span></div></div>
+<div class="pbar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow=${v.scanPct}><i style="width: ${v.scanW}"></i></div>
+<div style="font-size: 13px; color: #5f6987; font-weight: 600">Checking ${v.scanDone} of ${v.dirCount} sources · ${v.scanPct}%</div>
+<div class="dl">${(v.scanList || []).map((d, $index) => html`<div class="dli ${d.cls}"><span class="s ${d.cls}"></span>${d.name}</div>`)}</div>
+</div>
+</div>
+</div>
+` : null}
+
+
+${v.isResult ? html`
+<div class="card anim">
+<div class="bizline">
+<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0119 9.5C19 14.8 12 21 12 21z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg>
+<div><span class="rt" style="margin-bottom: 6px">Real-time data · 100% scanned</span><b style="display: block">${v.biz.name}</b><span>${v.biz.addr} · ${v.biz.phone}</span></div>
+<div class="links2"><button type="button" class="btn lnk" onClick=${v.copyLink}>${v.copyLabel}</button><button type="button" class="btn lnk" onClick=${v.reset}>Find another business</button></div>
+</div>
+<div class="summ">
+<div class="sm full"><small>Online presence</small><span class="hint">Overall assessment</span><div class="lvl"><span class="bars"><i class="f" style="height: 8px"></i><i class="f" style="height: 13px"></i><i class="f" style="height: 18px"></i><i style="height: 22px"></i><i style="height: 22px"></i></span><b>Medium</b></div></div>
+<div class="sm"><small>Listings to fix</small><span class="hint">Fixable after sign-up</span><div class="v mono">${v.toFix}<span> / ${v.dirCount}</span></div></div>
+<div class="sm"><small>Average rating</small><span class="hint">From Google reviews</span><div class="v mono">${v.biz.rating}<span> / 5.0</span></div></div>
+<div class="sm"><small>Total reviews</small><span class="hint">Reviews build trust</span><div class="v mono">${v.biz.reviews}</div></div>
+<div class="sm"><small>GBP completeness</small><span class="hint">Profile strength</span><div class="v mono">${v.biz.gbp}%</div><div class="gbar"><i style="width: ${v.biz.gbpW}"></i></div></div>
+</div>
+<div class="ctabar"><p>You're missing from ${v.missing} directories and have ${v.errors} listings with wrong details.</p><a href="index.html" class="btn ppl">Fix ${v.toFix} listings — create free account</a></div>
+</div>
+
+<div class="card anim">
+<div class="ptitle" style="margin-bottom: 14px"><h2>Fix these to improve and expand your coverage</h2><p>Listing status across the directories customers use most.</p></div>
+<div class="dirlogos" aria-hidden="true"><span class="dlg">Google</span><span class="dlg">Bing</span><span class="dlg">Apple</span><span class="dlg">Facebook</span><span class="dlg">Justdial</span><span class="dlg">Instagram</span></div>
+<div class="dtw"><div class="dtin dt">
+<div class="dr h"><span>Directory</span><span>Status</span><span>Details</span><span></span></div>
+${(v.dirRows || []).map((r, $index) => html`<div class="dr"><span class="dn">${r.name}${r.key ? html`<span class="k">Key</span>` : null}</span><span class="st ${r.cls}">${r.status}</span><span class="det">${r.det}</span><span class="fix">${r.fix}</span></div>`)}
+</div></div>
+<div class="showall"><button type="button" class="btn ghost" onClick=${v.toggleAll}>${v.allLabel}</button></div>
+</div>
+
+<div class="ups">
+<div class="up anim">
+<span class="tk">Listing Management</span><h3>Fix wrong details and get listed everywhere</h3>
+<div class="vis"><div class="fixl"><div>Facebook phone <s>+91 120 455 0198</s><span class="ar">→</span><span class="okc">+91 120 455 0189</span></div><div>Justdial <span style="color: #c02626">2 duplicate listings</span><span class="ar">→</span><span class="okc">Merged</span></div><div>Bing Places <span style="color: #c02626">Not present</span><span class="ar">→</span><span class="okc">Published</span></div></div></div>
+<ul><li><b>Automatic NAP sync</b>Update name, address and phone everywhere from one place.</li><li><b>Duplicate cleanup</b>Find and merge duplicate listings for every location.</li></ul>
+<a href="index.html" class="btn ppl">Fix my listings</a>
+</div>
+<div class="up anim">
+<span class="tk">GBP Optimization + AI Agent</span><h3>Power up your Google Business Profile</h3>
+<div class="vis"><div class="posts"><div class="post"><span class="dd">Mon</span>Weekend opening hours — drafted by AI</div><div class="post"><span class="dd">Thu</span>Teeth whitening offer with photo</div><div class="post"><span class="dd">Next</span>Add 2 suggested categories (+${v.gbpGain}% completeness)</div></div></div>
+<ul><li><b>Post scheduling</b>Plan weeks of posts in minutes with AI drafts.</li><li><b>Profile insights</b>Calls, directions and website clicks over time.</li></ul>
+<a href="index.html" class="btn ppl">Optimize my profile</a>
+</div>
+<div class="up anim">
+<span class="tk">Map Rank Tracker</span><h3>See how you rank from every corner of your area</h3>
+<div class="vis"><div class="map rankmap local-rankmap" aria-label="Map rank tracker preview"><iframe class="maptiles" title="Map rank tracker area" src="https://www.google.com/maps?ll=28.5483%2C77.1258&z=14&output=embed" loading="lazy"></iframe>${(v.gridPrev || []).slice(0,15).map((g, $index) => html`<span class="pin on ${g.cls === 'g1' ? 'top' : ''}" style="left: ${14 + ($index % 5) * 18}%; top: ${30 + Math.floor($index / 5) * 22}%"><span class="pb"></span><span class="pn">${g.label}</span></span>`)}</div></div><ul><li><b>Any keyword, any business</b>Track yourself and competitors on the same grid.</li><li><b>Scheduled scans</b>Daily, weekly, monthly or on demand.</li></ul>
+<a href="index.html" class="btn ppl">Track my map rankings</a>
+</div>
+<div class="up anim">
+<span class="tk">Reviews + Competitive Analysis</span><h3>Manage your reputation and track competitors</h3>
+<div class="vis"><div class="cmp"><div class="you"><span>${v.biz.name}</span><span class="mono">${v.biz.rating} ★</span><span class="mono">${v.biz.reviews}</span></div><div><span>Nearby competitor A</span><span class="mono">4.5 ★</span><span class="mono">688</span></div><div><span>Nearby competitor B</span><span class="mono">4.1 ★</span><span class="mono">203</span></div></div></div>
+<ul><li><b>One review inbox</b>Every location, with low-rating alerts and AI reply drafts.</li><li><b>Competitor benchmarks</b>Review volume, reply rate and rating trends.</li></ul>
+<a href="index.html" class="btn ppl">Manage my reviews</a>
+</div>
+</div>
+
+<div class="band anim" style="margin-top: 18px">
+<h2>Fix ${v.toFix} listing issues and start ranking in more neighbourhoods</h2>
+<p>Your scan is saved. Create a free account to fix issues, or log in to your client dashboard.</p>
+<div style="margin-top: 24px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap"><a href="index.html" class="btn lg" style="background: #fff; color: #0b1233">Create free account</a><a href="#start" class="btn lg" style="color: #fff; border: 1px solid rgba(255,255,255,.4)">Start Free Audit</a></div>
+<p style="margin-top: 18px; font-size: 14px"><a href="index.html" style="color: #fff; font-weight: 700">Also audit your website SEO →</a></p>
+</div>
+` : null}
+</div>
+</div>
+` : null}
+
+<footer class="foot"><span>© 2026 LOCAL Ai · Local SEO dashboard</span><span>Sample scans use demo data. <a href="index.html">Back to overview</a></span></footer>
+</main>
+</div>
+</div>
+`;
+  }
+
+class Component extends DCLogic {
+  state = { step: 'start', q: '', adv: false, f: { country: 'IN', name: '', addr: '', pin: '', phone: '' }, err: '', biz: null, scanI: 0, showAll: false, aud: 'smb', faq: 0, copied: false };
+
+  componentWillUnmount() { clearInterval(this.iv); clearTimeout(this.to); }
+
+  top() { try { const el = document.getElementById('start'); if (el && el.scrollIntoView) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (e) {} }
+
+  dirs() {
+    return [
+      { name: 'Google Business Profile', key: true, cls: 'ok', status: 'No issues', det: 'Name, address and phone match' },
+      { name: 'Bing Places', key: true, cls: 'bad', status: 'Not present', det: 'Missed opportunity · high-traffic directory', fix: 'Add listing' },
+      { name: 'Apple Business Connect', key: true, cls: 'bad', status: 'Not present', det: 'Missed opportunity · Apple Maps and Siri', fix: 'Add listing' },
+      { name: 'Facebook', key: true, cls: 'warn', status: 'Wrong phone', det: 'Shows +91 120 455 0198', fix: 'Fix' },
+      { name: 'Justdial', key: true, cls: 'warn', status: 'Duplicate', det: '2 listings for the same location', fix: 'Merge' },
+      { name: 'Instagram', key: false, cls: 'warn', status: 'No address', det: 'Profile has no location set', fix: 'Fix' },
+      { name: 'Yelp', key: false, cls: 'ok', status: 'No issues', det: 'Name, address and phone match' },
+      { name: 'Foursquare', key: false, cls: 'warn', status: 'Missing hours', det: 'Opening hours not listed', fix: 'Fix' },
+      { name: 'Sulekha', key: false, cls: 'bad', status: 'Not present', det: 'Missed opportunity · local services directory', fix: 'Add listing' },
+      { name: 'HERE WeGo', key: false, cls: 'bad', status: 'Not present', det: 'Missed opportunity · in-car navigation', fix: 'Add listing' },
+      { name: 'TomTom', key: false, cls: 'bad', status: 'Not present', det: 'Missed opportunity · maps data provider', fix: 'Add listing' },
+      { name: 'Waze', key: false, cls: 'warn', status: 'Old address', det: 'Pin placed at previous location', fix: 'Fix' }
+    ];
+  }
+
+  startScan(biz) {
+    clearInterval(this.iv); clearTimeout(this.to);
+    this.setState({ step: 'scan', biz, scanI: 0, showAll: false, copied: false, err: '' });
+    this.top();
+    const n = this.dirs().length;
+    this.iv = setInterval(() => {
+      const i = this.state.scanI + 1;
+      if (i >= n) {
+        clearInterval(this.iv);
+        this.setState({ scanI: n });
+        this.to = setTimeout(() => { this.setState({ step: 'result' }); this.top(); }, 600);
+      } else this.setState({ scanI: i });
+    }, 280);
+  }
+
+  mkBiz(name, addr, cat, kw) {
+    const s = name.length;
+    return { name, addr, cat, kw: kw || 'dentist near me', phone: '+91 120 455 0189', rating: (4.0 + (s % 5) / 10).toFixed(1), reviews: String(180 + s * 11), gbp: 60 + (s % 15) };
+  }
+
+  renderVals() {
+    const st = this.state;
+    const dirs = this.dirs();
+    const n = dirs.length;
+    const titleCase = (t) => t.replace(/\s+/g, ' ').trim().replace(/\b\w/g, (c) => c.toUpperCase());
+
+    const submitSearch = (ev) => {
+      if (ev && ev.preventDefault) ev.preventDefault();
+      const q = (st.adv ? st.f.name : st.q).trim();
+      if (q.length < 2) { this.setState({ err: st.adv ? 'Enter your business name to continue.' : 'Enter your business name or address to start the scan.' }); return; }
+      if (st.adv) {
+        const addr = [st.f.addr, st.f.pin].filter(Boolean).join(', ') || 'Address from your details';
+        const b = this.mkBiz(titleCase(q), addr, 'Local business');
+        if (st.f.phone) b.phone = st.f.phone;
+        this.startScan(b);
+        return;
+      }
+      this.setState({ step: 'pick', err: '' });
+      this.top();
+    };
+
+    const qt = titleCase(st.q || 'Your Business');
+    const mSrc = [
+      [qt, 'Sector 18, Noida, Uttar Pradesh 201301', 'Best match'],
+      [qt + ' – Sector 62', 'Sector 62, Noida, Uttar Pradesh 201309', 'Branch'],
+      [qt + ' Clinic & Studio', 'DLF Phase 3, Gurugram, Haryana 122002', 'Similar name']
+    ];
+    const matches = mSrc.map((m) => ({ name: m[0], addr: m[1], cat: m[2], pick: () => this.startScan(this.mkBiz(m[0], m[1], m[2])) }));
+
+    const samples = [
+      ['IN', 'Dental clinic in Noida', ['Northside Dental Clinic', 'C-24, Sector 18, Noida, Uttar Pradesh 201301', 'Dental clinic', 'dentist near me']],
+      ['IN', 'Salon in Bengaluru', ['Bloom Hair & Beauty Studio', '12th Main, Indiranagar, Bengaluru 560038', 'Beauty salon', 'salon near me']],
+      ['AE', 'Restaurant in Dubai', ['Saffron Courtyard Kitchen', 'Al Wasl Road, Jumeirah 1, Dubai', 'Restaurant', 'indian restaurant near me']]
+    ].map((s) => ({ cc: s[0], label: s[1], go: () => this.startScan(this.mkBiz(s[2][0], s[2][1], s[2][2], s[2][3])) }));
+
+    const scanList = dirs.map((d, i) => ({ name: d.name, cls: i < st.scanI ? 'ok' : (i === st.scanI ? 'run' : 'wait') }));
+    const rpts = [[30, 28], [68, 22], [78, 58], [22, 66], [52, 80], [40, 40], [62, 44], [16, 42], [84, 34], [46, 18], [72, 76], [30, 84]];
+    const radar = rpts.map((p, i) => ({ x: p[0] + '%', y: p[1] + '%', cls: i < st.scanI ? 'on' : '' }));
+    const pct = Math.round(st.scanI / n * 100);
+
+    const rows = (st.showAll ? dirs : dirs.slice(0, 8)).map((d) => ({ name: d.name, key: d.key, cls: d.cls, status: d.status, det: d.det, fix: d.fix || '' }));
+    const missing = dirs.filter((d) => d.cls === 'bad').length;
+    const errors = dirs.filter((d) => d.cls === 'warn').length;
+
+    const grid = [];
+    for (let r = 0; r < 5; r++) for (let c = 0; c < 5; c++) {
+      const d = Math.sqrt((r - 2) * (r - 2) + (c - 2) * (c - 2));
+      const v = Math.round(1 + d * 3 + ((r * 7 + c * 3) % 4));
+      grid.push(r >= 3 ? { label: '', cls: 'lock' } : { label: v > 20 ? '20+' : String(v), cls: v <= 3 ? 'g1' : v <= 7 ? 'g2' : v <= 13 ? 'g3' : 'g4' });
+    }
+
+    const AUD = {
+      smb: { label: 'Small businesses', title: 'Look like the best choice on the map — without hiring an agency', desc: 'Run your Google Business Profile, listings and reviews in about an hour a week, with automations and AI doing the routine work.', points: ['Free scan of your local presence', 'AI-drafted posts and review replies', 'Automatic review requests after each visit', 'Simple weekly to-do list'] },
+      multi: { label: 'Multi-location brands', title: 'Keep every location accurate and visible', desc: 'Manage hundreds of profiles and listings in bulk, protect them from unwanted edits, and compare performance by location.', points: ['Bulk listing and GBP updates', 'Location-level map rank tracking', 'Review inbox across all locations', 'Weak service-area detection'] },
+      agency: { label: 'Agencies', title: 'Deliver local SEO results clients can see', desc: 'Onboard clients with a free scan, manage every account from one place, and give each client their own dashboard login.', points: ['Free scan as a sales tool', 'Client dashboard logins', 'Website SEO + Local SEO in one report', 'Automations across client accounts'] }
+    };
+    const audTabs = ['smb', 'multi', 'agency'].map((k) => ({ label: AUD[k].label, sel: st.aud === k ? 'true' : 'false', cls: st.aud === k ? 'on' : '', pick: () => this.setState({ aud: k }) }));
+
+    const FAQ = [
+      ['What does the free local scan check?', 'It checks whether your business appears on major directories, whether your name, address and phone match, your Google rating and review count, and how complete your Google Business Profile is.'],
+      ['What is included in the Local toolkit?', 'Listing Management, Review Management, GBP Optimization, Automations, the GBP AI Agent, Competitive Analysis and the Map Rank Tracker — all in the Local section of the dashboard.'],
+      ['Can I use Local SEO without the website SEO tools?', 'Yes. You can start with Local only and add Website SEO, technical audits and GSC, GA4, GTM and UTM reporting whenever you need them.'],
+      ['Do you support businesses with multiple locations?', 'Yes. You can manage every location from one account, update listings and profiles in bulk, and compare performance location by location.'],
+      ['Is there a plan for agencies?', 'Yes. Agencies can manage multiple client accounts and give each client their own dashboard login.'],
+      ['Which countries are supported?', '[List of supported countries and directories]']
+    ];
+    const faqs = FAQ.map((f, i) => ({ q: f[0], a: f[1], open: st.faq === i, exp: st.faq === i ? 'true' : 'false', cls: st.faq === i ? 'open' : '', toggle: () => this.setState({ faq: st.faq === i ? -1 : i }) }));
+
+    const biz = st.biz || this.mkBiz('Northside Dental Clinic', 'C-24, Sector 18, Noida 201301', 'Dental clinic');
+    const bizV = Object.assign({}, biz, { gbpW: biz.gbp + '%' });
+    const set = (k) => (ev) => this.setState({ f: Object.assign({}, st.f, { [k]: ev.target.value }) });
+
+    return {
+      isStart: st.step === 'start', inFlow: st.step !== 'start',
+      isPick: st.step === 'pick', isScan: st.step === 'scan', isResult: st.step === 'result',
+      sp1: st.step === 'pick' ? 'cur' : 'done', sp2: st.step === 'scan' ? 'cur' : (st.step === 'result' ? 'done' : ''), sp3: st.step === 'result' ? 'cur' : '',
+      q: st.q, onQ: (ev) => this.setState({ q: ev.target.value, err: '' }),
+      simple: !st.adv, advOpen: st.adv, advCls: st.adv ? 'open' : '', advAria: st.adv ? 'true' : 'false',
+      advLabel: st.adv ? 'Hide advanced search' : 'Advanced search',
+      toggleAdv: () => this.setState({ adv: !st.adv, err: '' }),
+      openAdv: () => { this.setState({ step: 'start', adv: true, f: Object.assign({}, st.f, { name: st.q }) }); this.top(); },
+      fCountry: st.f.country, fName: st.f.name, fAddr: st.f.addr, fPin: st.f.pin, fPhone: st.f.phone,
+      onCountry: set('country'), onFName: set('name'), onFAddr: set('addr'), onFPin: set('pin'), onFPhone: set('phone'),
+      submitSearch, hasErr: !!st.err, err: st.err,
+      samples, matches, qShown: st.q.trim(),
+      goStart: () => { clearInterval(this.iv); this.setState({ step: 'start' }); this.top(); },
+      reset: () => { clearInterval(this.iv); clearTimeout(this.to); this.setState({ step: 'start', q: '', biz: null, err: '' }); this.top(); },
+      biz: bizV, scanList, radar, scanPct: pct, scanW: pct + '%', scanDone: Math.min(st.scanI, n), dirCount: n,
+      dirRows: rows, allLabel: st.showAll ? 'Show fewer' : 'Show all ' + n + ' directories', toggleAll: () => this.setState({ showAll: !st.showAll }),
+      toFix: missing + errors, missing, errors, gbpGain: Math.min(12, 100 - biz.gbp),
+      copyLabel: st.copied ? 'Link copied' : 'Copy link',
+      copyLink: () => { try { if (navigator.clipboard) navigator.clipboard.writeText(window.location.href); } catch (e) {} this.setState({ copied: true }); },
+      gridPrev: grid, audTabs, aud: AUD[st.aud], faqs
+    };
+  }
+}
+
+  render(html`<${Component} />`, document.getElementById('app'));
+})();
+</script>
+</body>
+</html>
